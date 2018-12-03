@@ -1,0 +1,74 @@
+available_toppings = ['banana','pineapple','pepperoni','ham','halapeno',
+    'extra cheese','a number 9','with extra dip']
+pizza_toppings = []
+names = []
+orders = {}
+
+prompt = "\n\nWhat sort of toppings would you like on your pizza? \nType quit when finished.\n\n"
+prompt2 = "\nWhat is your name? "
+loop = True
+loop2 = True
+moreorders = "\nDoes anyone else want to order? (Y/N) "
+
+question = input("\nWould you like to order a pizza? ")
+if question.lower() == "y" or question.lower() == "yes":
+    while loop:
+        name = input(prompt2)
+        while loop2:
+            topping = input(prompt)
+            if topping == 'quit':
+                loop2 = False
+            elif topping in available_toppings:
+                if topping not in pizza_toppings:
+                    pizza_toppings.append(topping)
+                    print('\nThank you for adding ' + topping + ' to your pizza! \n')
+                elif topping in pizza_toppings:
+                    print("\nYou've already ordered that topping.\n")
+            else:
+                print("\nSorry, we don't have that topping.\n")
+
+
+        topping_count = 0
+        for pizza_topping in pizza_toppings:
+            topping_count += 1
+
+        if pizza_toppings:
+            if topping_count > 1:
+                print('\nYour pizza has ' + str(topping_count) + 
+                    ' toppings, ' + name.title() + '. They are the following:')
+                for pizza_topping in pizza_toppings:
+                    print(pizza_topping)
+            else:
+                print('\nYour pizza has ' + str(topping_count) + 
+                    ' topping, ' + name.title() + '. It is the following:')
+                print(pizza_topping)
+
+
+        pizza_toppings = []
+        orders[name] = pizza_toppings
+
+        order_count = 0
+        for name in orders:
+            order_count += 1
+        
+        if order_count == 1:
+            print("\nCurrently there is 1 order, made by:")
+        elif order_count > 1:
+            print("\nCurrently there are " + str(order_count) + 
+                " orders, made by the following people:")
+
+
+        for name in orders:
+            print(name.title())
+
+
+        while True:
+            moreorders2 = input(moreorders)
+            if moreorders2.lower() == "y" or moreorders2.lower() == "yes":
+                loop2 = True
+                break 
+            elif moreorders2.lower() == "n" or moreorders2.lower() == "no":
+                loop = False
+                break
+            else:
+                print("\nThat is not a valid input.")
